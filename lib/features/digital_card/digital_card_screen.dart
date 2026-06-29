@@ -171,7 +171,7 @@ class _DigitalCardScreenState extends ConsumerState<DigitalCardScreen> {
           ],
           socialMedias: [
             if (card.linkedin.isNotEmpty)
-              SocialMedia(userName: card.linkedin, label: SocialMediaLabel.linkedIn),
+              SocialMedia(username: card.linkedin, label: const Label(SocialMediaLabel.linkedIn)),
           ],
           addresses: [
             if (card.address.isNotEmpty)
