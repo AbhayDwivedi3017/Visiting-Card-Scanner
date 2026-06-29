@@ -325,39 +325,42 @@ class _DigitalCardScreenState extends ConsumerState<DigitalCardScreen> {
             // QR Code Section
             Column(
               children: [
-                const Text(
-                  'Scan QR to Add to Contacts',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, fontFamily: 'Outfit'),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white, // Ensure light background for QR contrast
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        spreadRadius: 2,
+                if (widget.card.linkedin.isNotEmpty) ...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // Contact QR
+                      Column(
+                        children: [
+                          const Text(
+                            'Scan for Contacts',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'Outfit'),
+                          ),
+                          const SizedBox(height: 10),
+                          _buildQrContainer(_vCardData, 130.0),
+                        ],
+                      ),
+                      // LinkedIn QR
+                      Column(
+                        children: [
+                          const Text(
+                            'Scan for LinkedIn',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'Outfit'),
+                          ),
+                          const SizedBox(height: 10),
+                          _buildQrContainer(widget.card.linkedin, 130.0),
+                        ],
                       ),
                     ],
                   ),
-                  child: QrImageView(
-                    data: _vCardData,
-                    version: QrVersions.auto,
-                    size: 160.0,
-                    gapless: false,
-                    errorStateBuilder: (cxt, err) {
-                      return const Center(
-                        child: Text(
-                          'Could not generate QR Code',
-                          style: TextStyle(color: Colors.red),
-                        ),
-                      );
-                    },
+                ] else ...[
+                  const Text(
+                    'Scan QR to Add to Contacts',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, fontFamily: 'Outfit'),
                   ),
-                ),
+                  const SizedBox(height: 12),
+                  _buildQrContainer(_vCardData, 160.0),
+                ],
               ],
             ),
 
@@ -425,6 +428,37 @@ class _DigitalCardScreenState extends ConsumerState<DigitalCardScreen> {
             style: const TextStyle(color: Colors.white, fontSize: 12),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildQrContainer(String data, double size) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white, // Ensure light background for QR contrast
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: QrImageView(
+        data: data,
+        version: QrVersions.auto,
+        size: size,
+        gapless: false,
+        errorStateBuilder: (cxt, err) {
+          return const Center(
+            child: Text(
+              'Could not generate QR',
+              style: TextStyle(color: Colors.red, fontSize: 10),
+            ),
+          );
+        },
       ),
     );
   }
