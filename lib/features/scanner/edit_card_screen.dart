@@ -32,6 +32,7 @@ class _EditCardScreenState extends ConsumerState<EditCardScreen> {
   late TextEditingController _altPhoneController;
   late TextEditingController _emailController;
   late TextEditingController _websiteController;
+  late TextEditingController _linkedinController;
   late TextEditingController _addressController;
   late TextEditingController _cityController;
   late TextEditingController _stateController;
@@ -49,6 +50,7 @@ class _EditCardScreenState extends ConsumerState<EditCardScreen> {
     _altPhoneController = TextEditingController(text: widget.card.altPhone);
     _emailController = TextEditingController(text: widget.card.email);
     _websiteController = TextEditingController(text: widget.card.website);
+    _linkedinController = TextEditingController(text: widget.card.linkedin);
     _addressController = TextEditingController(text: widget.card.address);
     _cityController = TextEditingController(text: widget.card.city);
     _stateController = TextEditingController(text: widget.card.state);
@@ -66,6 +68,7 @@ class _EditCardScreenState extends ConsumerState<EditCardScreen> {
     _altPhoneController.dispose();
     _emailController.dispose();
     _websiteController.dispose();
+    _linkedinController.dispose();
     _addressController.dispose();
     _cityController.dispose();
     _stateController.dispose();
@@ -85,6 +88,7 @@ class _EditCardScreenState extends ConsumerState<EditCardScreen> {
       altPhone: _altPhoneController.text.trim(),
       email: _emailController.text.trim(),
       website: _websiteController.text.trim(),
+      linkedin: _linkedinController.text.trim(),
       address: _addressController.text.trim(),
       city: _cityController.text.trim(),
       state: _stateController.text.trim(),
@@ -439,6 +443,7 @@ class _EditCardScreenState extends ConsumerState<EditCardScreen> {
                 return null;
               }, TextInputType.emailAddress),
               _buildTextField('Website URL', _websiteController, Icons.language, null, TextInputType.url),
+              _buildTextField('LinkedIn URL', _linkedinController, Icons.link, null, TextInputType.url),
 
               const SizedBox(height: 20),
 

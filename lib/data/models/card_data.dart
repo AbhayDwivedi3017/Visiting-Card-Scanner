@@ -8,6 +8,7 @@ class CardData {
   final String altPhone;
   final String email;
   final String website;
+  final String linkedin;
   final String address;
   final String city;
   final String state;
@@ -27,6 +28,7 @@ class CardData {
     required this.altPhone,
     required this.email,
     required this.website,
+    required this.linkedin,
     required this.address,
     required this.city,
     required this.state,
@@ -47,6 +49,7 @@ class CardData {
     String? altPhone,
     String? email,
     String? website,
+    String? linkedin,
     String? address,
     String? city,
     String? state,
@@ -66,6 +69,7 @@ class CardData {
       altPhone: altPhone ?? this.altPhone,
       email: email ?? this.email,
       website: website ?? this.website,
+      linkedin: linkedin ?? this.linkedin,
       address: address ?? this.address,
       city: city ?? this.city,
       state: state ?? this.state,
@@ -88,6 +92,7 @@ class CardData {
       'alt_phone': altPhone,
       'email': email,
       'website': website,
+      'linkedin': linkedin,
       'address': address,
       'city': city,
       'state': state,
@@ -110,6 +115,7 @@ class CardData {
       altPhone: (map['alt_phone'] ?? '') as String,
       email: (map['email'] ?? '') as String,
       website: (map['website'] ?? '') as String,
+      linkedin: (map['linkedin'] ?? '') as String,
       address: (map['address'] ?? '') as String,
       city: (map['city'] ?? '') as String,
       state: (map['state'] ?? '') as String,
@@ -130,6 +136,7 @@ class CardData {
       altPhone,
       email,
       website,
+      linkedin,
       address,
       city,
       state,
@@ -149,6 +156,7 @@ class CardData {
       altPhone: '',
       email: '',
       website: '',
+      linkedin: '',
       address: '',
       city: '',
       state: '',

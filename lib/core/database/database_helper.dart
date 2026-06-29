@@ -23,8 +23,9 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _createDB,
+      onUpgrade: _upgradeDB,
     );
   }
 
@@ -49,6 +50,7 @@ class DatabaseHelper {
         alt_phone TEXT,
         email TEXT,
         website TEXT,
+        linkedin TEXT,
         address TEXT,
         city TEXT,
         state TEXT,
@@ -71,6 +73,12 @@ class DatabaseHelper {
         FOREIGN KEY (scanned_card_id) REFERENCES scanned_cards (id) ON DELETE CASCADE
       )
     ''');
+  }
+
+  FutureOr<void> _upgradeDB(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('ALTER TABLE scanned_cards ADD COLUMN linkedin TEXT DEFAULT ""');
+    }
   }
 
   // --- ExcelRefs Operations ---

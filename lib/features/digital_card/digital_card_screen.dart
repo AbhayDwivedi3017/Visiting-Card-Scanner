@@ -54,6 +54,7 @@ class _DigitalCardScreenState extends ConsumerState<DigitalCardScreen> {
     if (card.altPhone.isNotEmpty) buffer.writeln('TEL;TYPE=WORK,VOICE:${card.altPhone}');
     if (card.email.isNotEmpty) buffer.writeln('EMAIL;TYPE=PREF,INTERNET:${card.email}');
     if (card.website.isNotEmpty) buffer.writeln('URL:${card.website}');
+    if (card.linkedin.isNotEmpty) buffer.writeln('X-SOCIALPROFILE;TYPE=linkedin:${card.linkedin}');
     if (card.address.isNotEmpty) {
       buffer.writeln('ADR;TYPE=WORK:;;${card.address};${card.city};${card.state};${card.pincode};${card.country}');
     }
@@ -167,6 +168,10 @@ class _DigitalCardScreenState extends ConsumerState<DigitalCardScreen> {
           websites: [
             if (card.website.isNotEmpty)
               Website(url: card.website, label: const Label(WebsiteLabel.homepage)),
+          ],
+          socialMedias: [
+            if (card.linkedin.isNotEmpty)
+              SocialMedia(userName: card.linkedin, label: SocialMediaLabel.linkedIn),
           ],
           addresses: [
             if (card.address.isNotEmpty)
@@ -309,6 +314,7 @@ class _DigitalCardScreenState extends ConsumerState<DigitalCardScreen> {
                     _buildPreviewContactItem(Icons.phone, widget.card.phone),
                     _buildPreviewContactItem(Icons.email, widget.card.email),
                     _buildPreviewContactItem(Icons.language, widget.card.website),
+                    _buildPreviewContactItem(Icons.link, widget.card.linkedin),
                   ],
                 ),
               ),

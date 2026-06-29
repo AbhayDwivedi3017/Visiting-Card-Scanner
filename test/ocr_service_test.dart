@@ -19,6 +19,7 @@ void main() {
         'Office: +91 120 456789',
         'john.doe@kloudera.com',
         'www.kloudera.com',
+        'linkedin.com/in/johndoe',
         'A-14, Sector 62, Noida, UP, 201301',
       ];
 
@@ -31,6 +32,7 @@ void main() {
       expect(result.altPhone, equals('+91 120 456789'));
       expect(result.email, equals('john.doe@kloudera.com'));
       expect(result.website, equals('www.kloudera.com'));
+      expect(result.linkedin, equals('https://linkedin.com/in/johndoe'));
       expect(result.pincode, equals('201301'));
       expect(result.state, equals('UP'));
       expect(result.city, equals('Noida'));
@@ -46,6 +48,7 @@ void main() {
         'Mob: (555) 019-5678',
         'jane.smith@acmesystems.com',
         'https://acmesystems.com',
+        'LinkedIn: janesmith',
         '100 Pine Street, San Francisco, CA, 94111, USA',
       ];
 
@@ -59,6 +62,7 @@ void main() {
       expect(result.altPhone, equals('(555) 019-2834'));
       expect(result.email, equals('jane.smith@acmesystems.com'));
       expect(result.website, equals('https://acmesystems.com'));
+      expect(result.linkedin, equals('https://linkedin.com/in/janesmith'));
       expect(result.pincode, equals('94111'));
       expect(result.state, equals('CA'));
       expect(result.city, equals('San Francisco'));

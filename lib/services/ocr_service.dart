@@ -57,6 +57,16 @@ class OcrService {
     final emailRegex = RegExp(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', caseSensitive: false);
     final websiteRegex = RegExp(r'(https?://)?(www\.)?[a-zA-Z0-9.-]+\.(com|org|net|co|info|in|edu|gov|io|tech|biz|us|uk|ae)', caseSensitive: false);
     
+    // LinkedIn profile/url regexes
+    final linkedinRegex = RegExp(
+      r'(https?://)?(www\.)?linkedin\.com/in/[a-zA-Z0-9_%-]+/?',
+      caseSensitive: false
+    );
+    final linkedinShortRegex = RegExp(
+      r'(in/|linkedin:\s*|[a-zA-Z0-9_%-]+@linkedin|linkedin\.com/)[a-zA-Z0-9_%-]+',
+      caseSensitive: false
+    );
+    
     // Multi-format Phone Regex
     final phoneRegex = RegExp(r'(\+?\d{1,4}[\s-]?)?(\(?\d{2,5}\)?[\s-]?)?\d{3,5}[\s-]?\d{3,5}');
     
@@ -88,6 +98,38 @@ class OcrService {
           candidates.removeAt(i);
           break;
         }
+      }
+    }
+
+    // Extract LinkedIn (High Confidence Match)
+    String linkedin = '';
+    for (int i = 0; i < candidates.length; i++) {
+      final line = candidates[i];
+      final linkedinMatch = linkedinRegex.firstMatch(line);
+      if (linkedinMatch != null) {
+        linkedin = linkedinMatch.group(0) ?? '';
+        candidates.removeAt(i);
+        break;
+      }
+      final shortMatch = linkedinShortRegex.firstMatch(line);
+      if (shortMatch != null) {
+        final matchVal = shortMatch.group(0) ?? '';
+        if (matchVal.startsWith('in/')) {
+          linkedin = 'https://linkedin.com/$matchVal';
+        } else if (matchVal.toLowerCase().startsWith('linkedin:')) {
+          final username = matchVal.split(':').last.trim();
+          linkedin = 'https://linkedin.com/in/$username';
+        } else {
+          linkedin = matchVal;
+        }
+        candidates.removeAt(i);
+        break;
+      }
+    }
+
+    if (linkedin.isNotEmpty) {
+      if (!linkedin.startsWith('http://') && !linkedin.startsWith('https://')) {
+        linkedin = 'https://$linkedin';
       }
     }
 
@@ -379,6 +421,7 @@ class OcrService {
       altPhone: altPhone,
       email: email,
       website: website,
+      linkedin: linkedin,
       address: address,
       city: city,
       state: state,

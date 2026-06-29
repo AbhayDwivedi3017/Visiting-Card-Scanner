@@ -13,7 +13,7 @@ class ExcelService {
 
   final List<String> _headers = [
     'Name', 'Designation', 'Company', 'Phone', 'Alternate Phone', 
-    'Email', 'Website', 'Address', 'City', 'State', 'Country', 
+    'Email', 'Website', 'LinkedIn', 'Address', 'City', 'State', 'Country', 
     'Pincode', 'Notes', 'Scan Date'
   ];
 
